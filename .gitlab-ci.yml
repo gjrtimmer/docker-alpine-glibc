@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - triggers
   - clean
   
 build:
@@ -48,7 +49,15 @@ release:
   script:
     - docker tag $(cat REPOSITORY)/${CI_PROJECT_PATH} $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
     - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
-    
+
+alpine-golang:
+  stage: triggers
+  tags:
+    - shell
+  except:
+    - tags
+  script:
+    - curl -X POST -F token=a4d1a79e73cbcb71b14e343786de3a -F ref=master https://gitlab.timmertech.nl/api/v3/projects/19/trigger/builds > /dev/null
 clean:
   stage: clean
   tags:
