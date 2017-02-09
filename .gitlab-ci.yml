@@ -58,6 +58,16 @@ alpine-golang:
     - tags
   script:
     - curl -X POST -F token=a4d1a79e73cbcb71b14e343786de3a -F ref=master https://gitlab.timmertech.nl/api/v3/projects/19/trigger/builds > /dev/null
+
+gitlab-runner:
+  stage: triggers
+  tags:
+    - shell
+  except:
+    - tags
+  script:
+    - curl -X POST -F token=0a1b3b7f64d4526e9fc771eebf5b23 -F ref=master https://gitlab.timmertech.nl/api/v3/projects/20/trigger/builds > /dev/null
+    
 clean:
   stage: clean
   tags:
