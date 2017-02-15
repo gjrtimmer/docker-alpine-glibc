@@ -1,8 +1,8 @@
 stages:
   - build
   - deploy
-  - triggers
   - clean
+  - triggers
   
 build:latest:
   stage: build
