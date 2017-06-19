@@ -4,7 +4,7 @@
 [![](https://images.microbadger.com/badges/commit/datacore/alpine-glibc.svg)](https://microbadger.com/images/datacore/alpine-glibc)
 [![](https://images.microbadger.com/badges/license/datacore/alpine-glibc.svg)](https://microbadger.com/images/datacore/alpine-glibc)
 
-# Docker Alpine Linux (Glibc)
+# Docker Alpine Linux (Glibc 2.25)
 
 - [Docker Registries](#docker-registries)
 - [Source Repositories](#source-repositories)
