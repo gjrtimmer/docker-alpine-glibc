@@ -33,26 +33,26 @@ alpine:golang:
   stage: triggers
   except:
     - tags
+  before_script:
+    - apk add --update --no-cache curl
   script:
-    - curl -X POST -F token=a4d1a79e73cbcb71b14e343786de3a -F ref=master https://gitlab.timmertech.nl/api/v3/projects/19/trigger/builds > /dev/null
+    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/19/trigger/builds > /dev/null
 
 alpine:tcl:
   stage: triggers
   except:
     - tags
+  before_script:
+    - apk add --update --no-cache curl
   script:
-    - curl -X POST -F token=1f4f1e04d28e03c5617fb1ff372d1d -F ref=master https://gitlab.timmertech.nl/api/v4/projects/47/trigger/pipeline > /dev/null
+    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v4/projects/47/trigger/pipeline > /dev/null
    
 gitlab:runner:latest:
   stage: triggers
   except:
     - tags
+  before_script:
+    - apk add --update --no-cache curl
   script:
-    - curl -X POST -F token=0a1b3b7f64d4526e9fc771eebf5b23 -F ref=master https://gitlab.timmertech.nl/api/v3/projects/20/trigger/builds > /dev/null
+    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/20/trigger/builds > /dev/null
 
-gitlab:runner:synology:
-  stage: triggers
-  except:
-    - tags
-  script:
-    - curl -X POST -F token=0a1b3b7f64d4526e9fc771eebf5b23 -F ref=synology https://gitlab.timmertech.nl/api/v3/projects/20/trigger/builds > /dev/null
