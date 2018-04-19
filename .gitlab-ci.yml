@@ -1,55 +1,36 @@
+variables:
+  REPOSITORY: registry.timmertech.nl
+
 stages:
   - build
-  - deploy
-  - clean
   - triggers
   
 build:latest:
   stage: build
-  tags: 
-    - shell
-  only:
+  only: 
     - master
   script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN ${REPOSITORY}
     - docker build --pull --force-rm=true 
         --build-arg VCS_REF=`git rev-parse --short HEAD` 
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
-        --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH} .
+        --tag=${REPOSITORY}/${CI_PROJECT_PATH} .
+    - docker push ${REPOSITORY}/${CI_PROJECT_PATH}
 
-build:branches:
+build:release:
   stage: build
-  tags: 
-    - shell
-  except:
-    - master
+  only:
+    - tags
   script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN ${REPOSITORY}
     - docker build --pull --force-rm=true 
         --build-arg VCS_REF=`git rev-parse --short HEAD` 
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
-        --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME} .
-    
-deploy:latest:
-  stage: deploy
-  tags:
-    - shell
-  only:
-    - master
-  script:
-    - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}
-
-deploy:branches:
-  stage: deploy
-  tags:
-    - shell
-  except:
-    - master
-  script:
-    - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
+        --tag=${REPOSITORY}/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME} .
+    - docker push ${REPOSITORY}/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
 
 alpine:golang:
   stage: triggers
-  tags:
-    - shell
   except:
     - tags
   script:
@@ -57,8 +38,6 @@ alpine:golang:
 
 alpine:tcl:
   stage: triggers
-  tags:
-    - shell
   except:
     - tags
   script:
@@ -66,8 +45,6 @@ alpine:tcl:
    
 gitlab:runner:latest:
   stage: triggers
-  tags:
-    - shell
   except:
     - tags
   script:
@@ -75,31 +52,7 @@ gitlab:runner:latest:
 
 gitlab:runner:synology:
   stage: triggers
-  tags:
-    - shell
   except:
     - tags
   script:
     - curl -X POST -F token=0a1b3b7f64d4526e9fc771eebf5b23 -F ref=synology https://gitlab.timmertech.nl/api/v3/projects/20/trigger/builds > /dev/null
-    
-clean:latest:
-  stage: clean
-  tags:
-    - shell
-  only:
-    - master
-  script:
-    -   if [ ! -z $(docker images -q $(cat REPOSITORY)/${CI_PROJECT_PATH}) ]; then 
-            docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH};
-        fi
-
-clean:branches:
-  stage: clean
-  tags:
-    - shell
-  except:
-    - master
-  script:
-    -   if [ ! -z $(docker images -q $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}) ]; then 
-            docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME};
-        fi

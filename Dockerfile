@@ -1,16 +1,16 @@
 FROM registry.timmertech.nl/docker/alpine-base:latest
-MAINTAINER G.J.R. Timmer <gjr.timmer@gmail.com>
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 ARG ALPINE_GLIBC_BASE_URL=https://github.com/sgerrand/alpine-pkg-glibc/releases/download
-ARG ALPINE_GLIBC_PACKAGE_VERSION=2.25-r0
+ARG ALPINE_GLIBC_PACKAGE_VERSION=2.27-r0
 ARG ALPINE_GLIBC_BASE_PACKAGE_FILENAME=glibc-${ALPINE_GLIBC_PACKAGE_VERSION}.apk
 ARG ALPINE_GLIBC_BIN_PACKAGE_FILENAME=glibc-bin-${ALPINE_GLIBC_PACKAGE_VERSION}.apk
 ARG ALPINE_GLIBC_I18N_PACKAGE_FILENAME=glibc-i18n-${ALPINE_GLIBC_PACKAGE_VERSION}.apk
 
 LABEL \
+    maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
 	nl.timmertech.build-date=${BUILD_DATE} \
 	nl.timmertech.name=alpine-glibc \
 	nl.timmertech.vendor=timmertech.nl \
