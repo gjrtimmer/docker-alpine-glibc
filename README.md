@@ -1,7 +1,5 @@
 [![build status](https://gitlab.timmertech.nl/docker/alpine-glibc/badges/master/build.svg)](https://gitlab.timmertech.nl/docker/alpine-glibc/commits/master)
 [![](https://images.microbadger.com/badges/image/datacore/alpine-glibc.svg)](https://microbadger.com/images/datacore/alpine-glibc)
-[![](https://images.microbadger.com/badges/version/datacore/alpine-glibc.svg)](https://microbadger.com/images/datacore/alpine-glibc)
-[![](https://images.microbadger.com/badges/commit/datacore/alpine-glibc.svg)](https://microbadger.com/images/datacore/alpine-glibc)
 [![](https://images.microbadger.com/badges/license/datacore/alpine-glibc.svg)](https://microbadger.com/images/datacore/alpine-glibc)
 
 # Docker Alpine Linux (Glibc 2.25)
