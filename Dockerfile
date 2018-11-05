@@ -2,6 +2,7 @@ FROM registry.timmertech.nl/docker/alpine-base:latest
 
 ARG BUILD_DATE
 ARG VCS_REF
+ARG GLIBC=2.27-r0
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
@@ -10,23 +11,24 @@ LABEL \
 	nl.timmertech.vendor=timmertech.nl \
 	nl.timmertech.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
 	nl.timmertech.vcs-ref=${VCS_REF} \
-	nl.timmertech.license=MIT
+	nl.timmertech.license=MIT \
+    org.gnu.glibc=${GLIBC}
 
 ENV LANG=C.UTF-8
-ENV ALPINE_GLIBC_PACKAGE_VERSION=2.27-r0
+ENV GLIBC_VERSION=${GLIBC}
 
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
-    ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
-    ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
-    ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
+    ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$GLIBC_VERSION.apk" && \
+    ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$GLIBC_VERSION.apk" && \
+    ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$GLIBC_VERSION.apk" && \
     apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
     wget \
         "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" \
         -O "/etc/apk/keys/sgerrand.rsa.pub" && \
     wget \
-        "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
-        "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
-        "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" && \
+        "$ALPINE_GLIBC_BASE_URL/$GLIBC_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
+        "$ALPINE_GLIBC_BASE_URL/$GLIBC_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
+        "$ALPINE_GLIBC_BASE_URL/$GLIBC_VERSION/$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" && \
     apk add --no-cache \
         "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
