@@ -7,14 +7,14 @@ ARG GLIBC=2.27-r0
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
-	org.label-schema.schema-version="1.0" \
+    org.label-schema.schema-version="1.0" \
     org.label-schema.build-date=${BUILD_DATE} \
-	org.label-schema.name=alpine-glibc \
-	org.label-schema.vendor=timmertech.nl \
+    org.label-schema.name=alpine-glibc \
+    org.label-schema.vendor=timmertech.nl \
     org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-glibc" \
-	org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
-	org.label-schema.vcs-ref=${VCS_REF} \
-	nl.timmertech.license=MIT \
+    org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
+    org.label-schema.vcs-ref=${VCS_REF} \
+    nl.timmertech.license=MIT \
     org.gnu.glibc=${GLIBC}
 
 ENV LANG=C.UTF-8
