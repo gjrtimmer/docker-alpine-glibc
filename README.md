@@ -9,25 +9,23 @@
 - [Docker Registries](#docker-registries)
 - [Source Repositories](#source-repositories)
 - [Installation](#installation)
-  - [DockerHub](#install-from-dockerhub)
-  - [TimmerTech](#install-from-timmertech)
-
 
 # Docker Registries
 
- - ```datacore/alpine-glibc:latest``` (DockerHub)
- - ```registry.timmertech.nl/docker/alpine-glibc:latest``` (registry.timmertech.nl)
-
+ - ```datacore/alpine-glibc:latest```
+ - ```registry.timmertech.nl/docker/alpine-glibc:latest```
 
 # Source Repositories
 
 - [github.com](https://github.com/GJRTimmer/docker-alpine-glibc)
 - [gitlab.timmertech.nl](https://gitlab.timmertech.nl/docker/alpine-glibc)
 
-
 # Installation
 
-## Install from DockerHub
+<details>
+<summary>Install from DockerHub</summary>
+<p>
+
 Download:
 ```bash
 docker pull datacore/alpine-glibc:latest
@@ -37,9 +35,14 @@ Build:
 ```bash
 docker build -t datacore/alpine-glibc https://github.com/GJRTimmer/docker-alpine-glibc
 ```
+</p>
+</details>
 
+<br/>
 
-## Install from timmertech
+<details>
+<summary>Install from TimmerTech</summary>
+<p>
 
 Download:
 ```bash
@@ -50,3 +53,5 @@ Build:
 ```bash
 docker build -t datacore/alpine-glibc https://gitlab.timmertech.nl/docker/alpine-glibc
 ```
+</p>
+</details>
