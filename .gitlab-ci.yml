@@ -1,58 +1,54 @@
-variables:
-  REPOSITORY: registry.timmertech.nl
-
 stages:
   - build
   - triggers
   
-build:latest:
+docker:latest:
   stage: build
   only: 
     - master
   script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN ${REPOSITORY}
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker build --pull --force-rm=true 
         --build-arg VCS_REF=`git rev-parse --short HEAD` 
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
-        --tag=${REPOSITORY}/${CI_PROJECT_PATH} .
-    - docker push ${REPOSITORY}/${CI_PROJECT_PATH}
+        --tag=${CI_REGISTRY}/${CI_PROJECT_PATH} .
+    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}
 
-build:release:
+docker:release:
   stage: build
   only:
     - tags
   script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN ${REPOSITORY}
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker build --pull --force-rm=true 
         --build-arg VCS_REF=`git rev-parse --short HEAD` 
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
-        --tag=${REPOSITORY}/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME} .
-    - docker push ${REPOSITORY}/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
+        --tag=${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME} .
+    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME}
 
-alpine:golang:
-  stage: triggers
-  except:
-    - tags
-  before_script:
-    - apk add --update --no-cache curl
-  script:
-    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/19/trigger/builds > /dev/null
+#alpine:golang:
+#  stage: triggers
+#  except:
+#     - tags
+#   before_script:
+#     - apk add --update --no-cache curl
+#   script:
+#     - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/19/trigger/builds > /dev/null
 
-alpine:tcl:
-  stage: triggers
-  except:
-    - tags
-  before_script:
-    - apk add --update --no-cache curl
-  script:
-    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v4/projects/47/trigger/pipeline > /dev/null
+# alpine:tcl:
+#   stage: triggers
+#   except:
+#     - tags
+#   before_script:
+#     - apk add --update --no-cache curl
+#   script:
+#     - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v4/projects/47/trigger/pipeline > /dev/null
    
-gitlab:runner:latest:
-  stage: triggers
-  except:
-    - tags
-  before_script:
-    - apk add --update --no-cache curl
-  script:
-    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/20/trigger/builds > /dev/null
-
+# gitlab:runner:latest:
+#   stage: triggers
+#   except:
+#     - tags
+#   before_script:
+#     - apk add --update --no-cache curl
+#   script:
+#     - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/20/trigger/builds > /dev/null

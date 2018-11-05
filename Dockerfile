@@ -8,7 +8,7 @@ LABEL \
 	nl.timmertech.build-date=${BUILD_DATE} \
 	nl.timmertech.name=alpine-glibc \
 	nl.timmertech.vendor=timmertech.nl \
-	nl.timmertech.vcs-url="https://github.com/GJRTimmer/docker-alpine-glibc.git" \
+	nl.timmertech.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
 	nl.timmertech.vcs-ref=${VCS_REF} \
 	nl.timmertech.license=MIT
 
