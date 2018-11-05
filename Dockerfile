@@ -2,15 +2,19 @@ FROM registry.timmertech.nl/docker/alpine-base:latest
 
 ARG BUILD_DATE
 ARG VCS_REF
+ARG VERSION
 ARG GLIBC=2.27-r0
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
-	nl.timmertech.build-date=${BUILD_DATE} \
-	nl.timmertech.name=alpine-glibc \
-	nl.timmertech.vendor=timmertech.nl \
-	nl.timmertech.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
-	nl.timmertech.vcs-ref=${VCS_REF} \
+	org.label-schema.schema-version="1.0" \
+    org.label-schema.build-date=${BUILD_DATE} \
+	org.label-schema.name=alpine-glibc \
+	org.label-schema.vendor=timmertech.nl \
+    org.label-schema.version=${VERSION} \
+    org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-glibc" \
+	org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
+	org.label-schema.vcs-ref=${VCS_REF} \
 	nl.timmertech.license=MIT \
     org.gnu.glibc=${GLIBC}
 
