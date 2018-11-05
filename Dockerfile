@@ -11,7 +11,6 @@ LABEL \
     org.label-schema.build-date=${BUILD_DATE} \
 	org.label-schema.name=alpine-glibc \
 	org.label-schema.vendor=timmertech.nl \
-    org.label-schema.version=${VERSION} \
     org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-glibc" \
 	org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
 	org.label-schema.vcs-ref=${VCS_REF} \
