@@ -42,7 +42,7 @@ dockerhub:latest:
   before_script:
     - apk add --update --no-cache curl
   script:
-    - curl -s -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/datacore/alpine-glibc/trigger/18818a52-d1c9-4a61-ab5a-6c9734b50b41/
+    - curl -s -H 'Content-Type:application/json' --data '{"build":true}' -X POST https://registry.hub.docker.com/u/datacore/alpine-glibc/trigger/18818a52-d1c9-4a61-ab5a-6c9734b50b41/
   when: manual
 
 #alpine:golang:
