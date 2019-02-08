@@ -73,11 +73,8 @@ dockerhub:release:
   stage: triggers
   only:
     - tags
-  before_script:
-    - apk add --update --no-cache curl
   script:
     - curl -s -H 'Content-Type:application/json' --data "{\"source_type\":\"Tag\",\"source_name\":\"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/datacore/alpine-glibc/trigger/${DOCKERHUB_TOKEN}/ > /dev/null
-
 
 #alpine:golang:
 #  stage: triggers
