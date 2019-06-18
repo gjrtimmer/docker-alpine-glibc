@@ -3,7 +3,7 @@ FROM registry.timmertech.nl/docker/alpine-base:latest
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
-ARG GLIBC=2.28-r0
+ARG GLIBC=2.29-r0
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
