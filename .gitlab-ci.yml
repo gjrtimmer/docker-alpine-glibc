@@ -2,7 +2,6 @@ image: registry.timmertech.nl/docker/docker:latest
 
 stages:
   - build
-  - triggers
 
 .docker-login: &docker-login
   before_script:
@@ -50,46 +49,3 @@ docker:release:
   <<: *docker-login
   <<: *docker-build
   <<: *docker-push
-
-gitlab:runner:latest:
-  stage: triggers
-  only:
-    - master
-  except:
-    - tags
-  script:
-    - curl -s -X POST -F token=${GITLAB_RUNNER_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/6/trigger/pipeline > /dev/null
-
-dockerhub:latest:
-  stage: triggers
-  only:
-    - master
-  except:
-    - tags
-  script:
-    - curl -s -H 'Content-Type:application/json' --data '{"build":true}' -X POST https://registry.hub.docker.com/u/datacore/alpine-glibc/trigger/${DOCKERHUB_TOKEN}/ > /dev/null
-
-dockerhub:release:
-  stage: triggers
-  only:
-    - tags
-  script:
-    - curl -s -H 'Content-Type:application/json' --data "{\"source_type\":\"Tag\",\"source_name\":\"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/datacore/alpine-glibc/trigger/${DOCKERHUB_TOKEN}/ > /dev/null
-
-#alpine:golang:
-#  stage: triggers
-#  except:
-#     - tags
-#   before_script:
-#     - apk add --update --no-cache curl
-#   script:
-#     - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/19/trigger/builds > /dev/null
-
-# alpine:tcl:
-#   stage: triggers
-#   except:
-#     - tags
-#   before_script:
-#     - apk add --update --no-cache curl
-#   script:
-#     - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v4/projects/47/trigger/pipeline > /dev/null
