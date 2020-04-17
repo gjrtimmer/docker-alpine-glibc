@@ -15,7 +15,7 @@
 
 # Source Repositories
 
-- [github.com](https://github.com/GJRTimmer/docker-alpine-glibc)
+- [github.com](https://github.com/gjrtimmer/docker-alpine-glibc)
 - [gitlab.timmertech.nl](https://gitlab.timmertech.nl/docker/alpine-glibc)
 
 # Installation
@@ -31,7 +31,7 @@ docker pull datacore/alpine-glibc:latest
 
 Build:
 ```bash
-docker build -t datacore/alpine-glibc https://github.com/GJRTimmer/docker-alpine-glibc
+docker build -t datacore/alpine-glibc https://github.com/gjrtimmer/docker-alpine-glibc
 ```
 </p>
 </details>
