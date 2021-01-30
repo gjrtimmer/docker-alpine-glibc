@@ -2,6 +2,7 @@ image: registry.timmertech.nl/docker/docker:latest
 
 stages:
   - build
+  - trigger
 
 variables:
   CI: 'true'
