@@ -4,6 +4,7 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 ARG GLIBC=2.32-r0
+ARG DOCKER_IMAGE
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
@@ -14,6 +15,7 @@ LABEL \
     org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-glibc" \
     org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
     org.label-schema.vcs-ref=${VCS_REF} \
+    org.label-schema.docker.image="${DOCKER_IMAGE}" \
     nl.timmertech.license=MIT \
     org.gnu.glibc=${GLIBC}
 
@@ -25,9 +27,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$GLIBC_VERSION.apk" && \
     ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$GLIBC_VERSION.apk" && \
     apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
-    wget \
-        "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" \
-        -O "/etc/apk/keys/sgerrand.rsa.pub" && \
+    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
     wget \
         "$ALPINE_GLIBC_BASE_URL/$GLIBC_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BASE_URL/$GLIBC_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
@@ -45,4 +45,5 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     rm  "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
+
 # EOF
