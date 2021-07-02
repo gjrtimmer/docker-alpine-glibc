@@ -4,7 +4,7 @@
 > 
 > The image on docker hub moved to [gjrtimmer/alpine-glibc](https://hub.docker.com/repository/docker/gjrtimmer/alpine-glibc)
 
-# Docker Alpine Linux (Glibc 2.32)
+# Docker Alpine Linux (Glibc 2.33)
 
 - [Source Repositories](#source-repositories)
 - [Installation](#installation)

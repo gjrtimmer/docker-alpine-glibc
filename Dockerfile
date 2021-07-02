@@ -5,7 +5,7 @@ ARG CI_PROJECT_NAME
 ARG CI_PROJECT_URL
 ARG VCS_REF
 ARG DOCKER_IMAGE
-ARG GLIBC=2.32-r0
+ARG GLIBC=2.33-r0
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
