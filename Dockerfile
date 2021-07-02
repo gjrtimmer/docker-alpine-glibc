@@ -1,26 +1,26 @@
 FROM registry.timmertech.nl/docker/alpine-base:latest
 
 ARG BUILD_DATE
+ARG CI_PROJECT_NAME
+ARG CI_PROJECT_URL
 ARG VCS_REF
-ARG VERSION
-ARG GLIBC=2.32-r0
 ARG DOCKER_IMAGE
+ARG GLIBC=2.32-r0
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
     org.label-schema.schema-version="1.0" \
     org.label-schema.build-date=${BUILD_DATE} \
-    org.label-schema.name=alpine-glibc \
-    org.label-schema.vendor=timmertech.nl \
-    org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-glibc" \
-    org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-glibc.git" \
+    org.label-schema.name=${CI_PROJECT_NAME} \
+    org.label-schema.url="${CI_PROJECT_URL}" \
+    org.label-schema.vcs-url="${CI_PROJECT_URL}.git" \
     org.label-schema.vcs-ref=${VCS_REF} \
     org.label-schema.docker.image="${DOCKER_IMAGE}" \
-    nl.timmertech.license=MIT \
+    org.label-schema.license=MIT \
     org.gnu.glibc=${GLIBC}
 
-ENV LANG=C.UTF-8
-ENV GLIBC_VERSION=${GLIBC}
+ENV LANG=C.UTF-8 \
+    GLIBC_VERSION=${GLIBC}
 
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$GLIBC_VERSION.apk" && \
