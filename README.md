@@ -6,7 +6,10 @@
 
 # Docker Alpine Linux (Glibc 2.32)
 
-- [Docker Alpine Linux (Glibc 2.32)](#docker-alpine-linux-glibc-232)
+- [Source Repositories](#source-repositories)
+- [Installation](#installation)
+  - [Download](#download)
+  - [Build](#build)
 
 ## Source Repositories
 
