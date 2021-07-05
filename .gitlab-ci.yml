@@ -55,6 +55,16 @@ update:
     - docker push ${DOCKER_IMAGE}
 
 
+alpine.glibc:
+  stage: trigger
+  only:
+    - master
+    - schedules
+  trigger:
+    project: docker/gitlab-runner
+    strategy: depend
+
+
 docker.hub:
   stage: trigger
   only:
