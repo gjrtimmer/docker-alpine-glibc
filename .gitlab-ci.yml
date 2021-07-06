@@ -16,6 +16,7 @@ variables:
 ################################################################################
 .build:
   stage: build
+  interruptible: true
   variables:
     DOCKER_FILE: Dockerfile
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
@@ -67,6 +68,7 @@ alpine.glibc:
 
 docker.hub:
   stage: trigger
+  interruptible: true
   only:
     - tags
     - schedules
