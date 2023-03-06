@@ -29,39 +29,39 @@ variables:
       --build-arg DOCKER_IMAGE=${DOCKER_IMAGE}
       --file=${DOCKER_FILE}
       --tag=${DOCKER_IMAGE} .
+    - docker push ${DOCKER_IMAGE}
 
 ################################################################################
 # Job Configuration
 ################################################################################
 release:
   extends: .build
+  allow_failure: true
   variables:
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_TAG}
   only:
     - tags
-  after_script:
-    - docker push ${DOCKER_IMAGE}
 
 update:
   extends: .build
+  allow_failure: true
   only:
     - master
     - schedules
-  after_script:
-    - docker push ${DOCKER_IMAGE}
 
 alpine.gitlab-runner:
   stage: trigger
+  allow_failure: true
   only:
     - master
     - schedules
-  allow_failure: true
   trigger:
     project: docker/gitlab-runner
 
 docker.hub:
   stage: trigger
   interruptible: true
+  allow_failure: true
   only:
     - tags
     - schedules
