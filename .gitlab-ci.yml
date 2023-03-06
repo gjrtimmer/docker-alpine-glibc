@@ -36,7 +36,6 @@ variables:
 ################################################################################
 release:
   extends: .build
-  allow_failure: true
   variables:
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_TAG}
   only:
@@ -44,14 +43,12 @@ release:
 
 update:
   extends: .build
-  allow_failure: true
   only:
     - master
     - schedules
 
 alpine.gitlab-runner:
   stage: trigger
-  allow_failure: true
   only:
     - master
     - schedules
@@ -61,7 +58,6 @@ alpine.gitlab-runner:
 docker.hub:
   stage: trigger
   interruptible: true
-  allow_failure: true
   only:
     - tags
     - schedules
