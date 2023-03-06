@@ -1,6 +1,6 @@
 FROM registry.timmertech.nl/docker/alpine-base:latest
 
-ARG GLIBC=2.33-r0
+ARG GLIBC=2.35-r0
 
 ENV LANG=C.UTF-8 \
     GLIBC_VERSION=${GLIBC}
