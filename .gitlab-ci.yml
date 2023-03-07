@@ -2,11 +2,13 @@ image: registry.timmertech.nl/docker/docker:latest
 
 stages:
   - build
+  - publish
   - trigger
 
 variables:
   CI: "true"
   DOCKER_DRIVER: overlay2
+  DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
 
 ################################################################################
 # Template(s)
@@ -16,7 +18,6 @@ variables:
   interruptible: true
   variables:
     DOCKER_FILE: Dockerfile
-    DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
   before_script:
     - echo "${DOCKER_PROXY_PASS}" | docker login -u "${DOCKER_PROXY_USER}" --password-stdin "${DOCKER_PROXY_HOST}"
     - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
@@ -31,9 +32,31 @@ variables:
       --tag=${DOCKER_IMAGE} .
     - docker push ${DOCKER_IMAGE}
 
+.dockerhub:
+  before_script:
+    - echo "${DOCKERHUB_PASS}" | docker login -u ${DOCKERHUB_USER} --password-stdin ${DOCKERHUB_REGISTRY}
+  script:
+    - docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_HUB}
+    - docker push ${DOCKER_IMAGE_HUB}
+
 ################################################################################
 # Job Configuration
 ################################################################################
+build:
+  extends: .build
+  only:
+    - master
+    - schedules
+
+dockerhub:
+  stage: publish
+  extends: .dockerhub
+  variables:
+    DOCKER_IMAGE_HUB: ${DOCKERHUB_REGISTRY}/${DOCKERHUB_NAMESPACE}/${CI_PROJECT_NAME}:latest
+  only:
+    - master
+    - schedules
+
 release:
   extends: .build
   variables:
@@ -41,11 +64,14 @@ release:
   only:
     - tags
 
-build:
-  extends: .build
+dockerhub-release:
+  stage: publish
+  extends: .dockerhub
+  variables:
+    DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_TAG}
+    DOCKER_IMAGE_HUB: ${DOCKERHUB_REGISTRY}/${DOCKERHUB_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_TAG}
   only:
-    - master
-    - schedules
+    - tags
 
 alpine.gitlab-runner:
   stage: trigger
@@ -54,12 +80,3 @@ alpine.gitlab-runner:
     - schedules
   trigger:
     project: docker/gitlab-runner
-
-docker.hub:
-  stage: trigger
-  interruptible: true
-  only:
-    - tags
-    - schedules
-  script:
-    - curl -s -H -X POST ${DOCKERHUB_TRIGGER} > /dev/null
