@@ -17,11 +17,6 @@ include:
 .build:
   stage: build
   interruptible: true
-  variables:
-    DOCKER_FILE: Dockerfile
-  before_script:
-    - docker login ${DOCKER_PROXY_HOST}
-    - docker login ${CI_REGISTRY}
   script:
     - docker build --pull
       --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
