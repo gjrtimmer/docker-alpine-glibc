@@ -1,7 +1,7 @@
-[![build status](https://gitlab.timmertech.nl/docker/alpine-glibc/badges/master/pipeline.svg)](https://gitlab.timmertech.nl/docker/alpine-glibc/commits/master)
+[![build status](https://gitlab.timmertech.nl/docker/alpine-glibc/badges/main/pipeline.svg)](https://gitlab.timmertech.nl/docker/alpine-glibc/commits/main)
 
 > **Docker Hub Image Move**
-> 
+>
 > The image on docker hub moved to [gjrtimmer/alpine-glibc](https://hub.docker.com/repository/docker/gjrtimmer/alpine-glibc)
 
 # Docker Alpine Linux (Glibc 2.33)
