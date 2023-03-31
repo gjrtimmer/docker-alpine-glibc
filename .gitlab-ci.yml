@@ -34,7 +34,7 @@ include:
 build:
   extends: .build
   only:
-    - master
+    - main
     - schedules
 
 dockerhub:
@@ -43,7 +43,7 @@ dockerhub:
   variables:
     DOCKERHUB_IMAGE: ${DOCKERHUB_REGISTRY}/${DOCKERHUB_NAMESPACE}/${CI_PROJECT_NAME}:latest
   only:
-    - master
+    - main
     - schedules
 
 release:
@@ -65,7 +65,7 @@ dockerhub-release:
 alpine.gitlab-runner:
   stage: trigger
   only:
-    - master
+    - main
     - schedules
   trigger:
     project: docker/gitlab-runner
