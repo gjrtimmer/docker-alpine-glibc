@@ -4,7 +4,6 @@ default:
 stages:
   - build
   - dockerhub
-  - trigger
 
 include:
   - project: templates/ci
