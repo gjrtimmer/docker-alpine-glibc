@@ -18,6 +18,11 @@ include:
 build:
   extends: .build
 
+latest:
+  extends: .build
+  variables: 
+    DOCKER_IMAGE: ${DOCKER_IMAGE}
+
 dockerhub:
   stage: dockerhub
   extends: .build
