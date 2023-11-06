@@ -21,7 +21,7 @@ build:
 latest:
   extends: .build
   variables: 
-    DOCKER_IMAGE: ${DOCKER_IMAGE}
+    DOCKER_IMAGE: ${DOCKER_IMAGE_LATEST}
 
 dockerhub:
   stage: dockerhub
