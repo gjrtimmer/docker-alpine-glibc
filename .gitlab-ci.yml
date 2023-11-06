@@ -20,8 +20,8 @@ build:
   variables:
     DOCKER_HUB: "ENABLED"
     DOCKER_TAGS: >-
-      --tag=${DOCKER_IMAGE_LATEST}
-      --tag=${DOCKER_IMAGE_HUB}
+      --tag=${DOCKER_IMAGE_PATH}:latest
+      --tag=${DOCKER_IMAGE_HUB_PATH}:latest
 
 release:
   extends: .build
