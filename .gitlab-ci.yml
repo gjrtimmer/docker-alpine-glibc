@@ -26,7 +26,7 @@ build:
       --tag=${DOCKER_IMAGE_HUB_PATH}:latest
     HEALTH_CHECK_UUID: c17e32cd-aba0-4045-a511-b81b63af1649
   after_script:
-    - !reference: [.healthcheck, after_script]
+    - !reference [.healthcheck, after_script]
 
 release:
   extends: .build
