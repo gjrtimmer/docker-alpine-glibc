@@ -3,6 +3,9 @@ include:
   - project: templates/ci
     file: default.yml
 
+variables:
+  DOCKER_IMAGE_BASE: ${CI_REGISTRY}/docker/alpine-base/cache:latest
+
 .build:
   stage: build
   extends: .docker-build-amd64
@@ -14,7 +17,7 @@ build:
   variables:
     DOCKER_HUB: "ENABLED"
     DOCKER_ARGS: >-
-      --cache-from=type=registry,ref=registry.timmertech.nl/docker/alpine-base/cache:latest
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE}
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_PATH}:latest
       --tag=${DOCKER_IMAGE_HUB_PATH}:latest
@@ -26,8 +29,7 @@ release:
     DOCKER_HUB: "ENABLED"
     DOCKER_IMAGE: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}
     DOCKER_ARGS: >-
-      --cache-from=type=registry,ref=registry.timmertech.nl/docker/alpine-base/cache:latest
-      --cache-from=type=registry,ref=${DOCKER_IMAGE}
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE}
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
   only:
