@@ -13,6 +13,8 @@ build:
   extends: .build
   variables:
     DOCKER_HUB: "ENABLED"
+    DOCKER_ARGS: >-
+      --cache-from=type=registry,ref=registry.timmertech.nl/docker/alpine-base/cache:latest
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_PATH}:latest
       --tag=${DOCKER_IMAGE_HUB_PATH}:latest
@@ -24,7 +26,7 @@ release:
     DOCKER_HUB: "ENABLED"
     DOCKER_IMAGE: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}
     DOCKER_ARGS: >-
-      --cache-from=type=registry,ref=registry.timmertech.nl/docker/alpine-base:latest
+      --cache-from=type=registry,ref=registry.timmertech.nl/docker/alpine-base/cache:latest
       --cache-from=type=registry,ref=${DOCKER_IMAGE}
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
