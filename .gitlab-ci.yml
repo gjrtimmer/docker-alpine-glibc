@@ -1,10 +1,4 @@
-default:
-  image: registry.timmertech.nl/docker/docker:latest
-
-stages:
-  - build
-  - dockerhub
-
+# yaml-language-server: $schema=https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json
 include:
   - project: templates/ci
     file: default.yml
