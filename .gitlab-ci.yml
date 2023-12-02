@@ -5,8 +5,11 @@ include:
 
 variables:
   DOCKER_IMAGE_BASE:
-    description: "Docker Image base"
+    description: "Docker base image"
     value: registry.timmertech.nl/docker/alpine-base-service:latest
+  DOCKER_IMAGE_BASE_CACHE:
+    description: "Docker base image cache"
+    value: registry.timmertech.nl/docker/alpine-base-service/cache:latest
 
 .build:
   stage: build
