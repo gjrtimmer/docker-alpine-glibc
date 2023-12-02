@@ -4,17 +4,15 @@ include:
     file: default.yml
 
 variables:
-  DOCKER_IMAGE_BASE:
-    description: "Docker base image"
-    value: registry.timmertech.nl/docker/alpine-base-service:latest
-  DOCKER_IMAGE_BASE_CACHE:
-    description: "Docker base image cache"
-    value: registry.timmertech.nl/docker/alpine-base-service/cache:latest
+  DOCKER_IMAGE_BASE: registry.timmertech.nl/docker/alpine-base-service:latest
+  DOCKER_IMAGE_BASE_CACHE: registry.timmertech.nl/docker/alpine-base-service/cache:latest
+  DOCKER_IMAGE_BASE_CACHE_AMD64: registry.timmertech.nl/docker/alpine-base-service/cache:amd64
 
 .build:
   stage: build
   extends: .docker-build-amd64
   variables:
+    DOCKER_BUILDX_JOB: $CI_JOB_ID
     DOCKER_PROXY: "ENABLED"
     DOCKER_HUB: "ENABLED"
 
@@ -24,7 +22,6 @@ build:
     DOCKER_IMAGE_CACHE_FROM: ${DOCKER_IMAGE_CACHE}
     DOCKER_IMAGE_CACHE_TO: ${DOCKER_IMAGE_CACHE}
     DOCKER_ARGS: >-
-      --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE}
       --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE_CACHE}
       --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE_CACHE_AMD64}
       --build-arg=DOCKER_IMAGE_BASE=${DOCKER_IMAGE_BASE}
