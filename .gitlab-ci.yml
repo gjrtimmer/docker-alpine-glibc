@@ -3,10 +3,10 @@ include:
   - project: templates/ci
     file: default.yml
 
-# variables:
-#   DOCKER_IMAGE_BASE:
-#     description: "Docker Image base"
-#     value: registry.timmertech.nl/docker/alpine-base-service:latest
+variables:
+  DOCKER_IMAGE_BASE:
+    description: "Docker Image base"
+    value: registry.timmertech.nl/docker/alpine-base-service:latest
 
 .build:
   stage: build
