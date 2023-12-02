@@ -4,7 +4,9 @@ include:
     file: default.yml
 
 variables:
-  DOCKER_IMAGE_BASE: ${CI_REGISTRY}/docker/alpine-base/cache:latest
+  DOCKER_IMAGE_BASE:
+    description: "Docker Image base"
+    value: registry.timmertech.nl/docker/alpine-base-service:latest
 
 .build:
   stage: build
@@ -18,6 +20,7 @@ build:
     DOCKER_HUB: "ENABLED"
     DOCKER_ARGS: >-
       --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE}
+      --build-arg=DOCKER_IMAGE_BASE=${DOCKER_IMAGE_BASE}
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_PATH}:latest
       --tag=${DOCKER_IMAGE_HUB_PATH}:latest
@@ -31,6 +34,7 @@ release:
     DOCKER_BUILDX_CACHE_ENABLED: 0
     DOCKER_ARGS: >-
       --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE}
+      --build-arg=DOCKER_IMAGE_BASE=${DOCKER_IMAGE_BASE}
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
   only:
