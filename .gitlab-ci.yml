@@ -21,6 +21,7 @@ variables:
 build:
   extends: .build
   variables:
+    DOCKER_IMAGE_CACHE_FROM: ${DOCKER_IMAGE_CACHE}
     DOCKER_IMAGE_CACHE_TO: ${DOCKER_IMAGE_CACHE}
     DOCKER_ARGS: >-
       --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE}
