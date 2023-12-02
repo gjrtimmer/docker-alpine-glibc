@@ -26,6 +26,7 @@ build:
     DOCKER_ARGS: >-
       --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE}
       --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE_CACHE}
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_BASE_CACHE_AMD64}
       --build-arg=DOCKER_IMAGE_BASE=${DOCKER_IMAGE_BASE}
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_PATH}:latest
