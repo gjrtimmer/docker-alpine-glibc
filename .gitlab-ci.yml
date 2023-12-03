@@ -16,6 +16,9 @@ variables:
 
 build:
   extends: .build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "schedule"
   variables:
     DOCKER_IMAGE_CACHE_FROM: ${DOCKER_IMAGE_CACHE}
     DOCKER_IMAGE_CACHE_TO: ${DOCKER_IMAGE_CACHE}
@@ -30,6 +33,8 @@ build:
 
 release:
   extends: .build
+  rules:
+    - if: $CI_COMMIT_TAG
   variables:
     DOCKER_IMAGE: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}
     DOCKER_BUILDX_CACHE_ENABLED: 0
@@ -38,5 +43,3 @@ release:
       --build-arg=DOCKER_IMAGE_BASE=${UPSTREAM_IMAGE}:latest
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
-  only:
-    - tags
