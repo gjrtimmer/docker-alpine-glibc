@@ -10,7 +10,6 @@ variables:
   stage: build
   extends: .docker-build-amd64
   variables:
-    DOCKER_BUILDX_JOB: $CI_JOB_ID
     DOCKER_PROXY: "ENABLED"
     DOCKER_HUB: "ENABLED"
 
