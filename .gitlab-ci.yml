@@ -4,7 +4,7 @@ include:
     file: default.yml
 
 variables:
-  UPSTREAM_IMAGE: registry.timmertech.nl/docker/alpine-base-service
+  UPSTREAM_IMAGE: ${CI_REGISTRY}/docker/alpine-base-service
 
 .build:
   stage: build
