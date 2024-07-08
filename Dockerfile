@@ -1,5 +1,4 @@
-ARG DOCKER_IMAGE_BASE
-FROM ${DOCKER_IMAGE_BASE}
+FROM harbor.local/gitlab/docker/alpine-base-service:edge
 
 ARG GLIBC=2.35-r1
 
@@ -34,7 +33,6 @@ ARG BUILD_DATE
 ARG CI_PROJECT_NAME
 ARG CI_PROJECT_URL
 ARG VCS_REF
-ARG DOCKER_IMAGE_BASE
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
@@ -47,7 +45,6 @@ LABEL \
     org.opencontainers.image.source="${CI_PROJECT_URL}.git" \
     org.opencontainers.image.ref.name=${VCS_REF} \
     org.opencontainers.image.revision=${VCS_REF} \
-    org.opencontainers.image.base.name="${DOCKER_IMAGE_BASE}" \
     org.opencontainers.image.licenses=MIT \
     org.opencontainers.image.vendor=timmertech.nl \
     org.gnu.glibc=${GLIBC}
