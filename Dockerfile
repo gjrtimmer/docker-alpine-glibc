@@ -5,7 +5,7 @@ ARG GLIBC=2.35-r1
 ENV LANG=C.UTF-8 \
     GLIBC_VERSION=${GLIBC}
 
-RUN apk add --update gcompat localedef
+RUN apk add --no-cache gcompat localedef
 
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$GLIBC_VERSION.apk" && \
